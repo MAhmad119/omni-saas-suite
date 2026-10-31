@@ -1,9 +1,10 @@
+```html
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OmniSaaS - AI Content & SEO Growth Suite</title>
+    <title>OmniSaaS AI - Growth Suite</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -13,11 +14,9 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#eff6ff',
                             500: '#3b82f6',
                             600: '#2563eb',
                             700: '#1d4ed8',
-                            900: '#1e3a8a',
                         }
                     }
                 }
@@ -32,38 +31,44 @@
         body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col md:flex-row">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col md:flex-row antialiased">
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-5 right-5 z-50 transform translate-y-[-100px] opacity-0 transition-all duration-300 bg-blue-600 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toast-msg">Text copied to clipboard!</span>
+    </div>
 
     <!-- Sidebar Navigation -->
-    <aside class="w-full md:w-64 bg-slate-900 border-r border-slate-800 p-6 flex flex-col justify-between">
+    <aside class="w-full md:w-64 bg-slate-900 border-r border-slate-800/80 p-6 flex flex-col justify-between shrink-0">
         <div>
             <!-- Brand Logo -->
             <div class="flex items-center gap-3 mb-8">
-                <div class="bg-gradient-to-tr from-blue-600 to-indigo-500 p-2.5 rounded-xl shadow-lg shadow-blue-500/30">
+                <div class="bg-gradient-to-tr from-blue-600 to-indigo-500 p-2.5 rounded-xl shadow-lg shadow-blue-500/20">
                     <i class="fa-solid fa-wand-magic-sparkles text-white text-xl"></i>
                 </div>
                 <div>
                     <h1 class="font-bold text-lg tracking-wide text-white">OmniSaaS AI</h1>
-                    <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full font-medium">v1.0 Pro</span>
+                    <span class="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full font-medium tracking-wider uppercase">v1.0 Pro</span>
                 </div>
             </div>
 
             <!-- Navigation Links -->
             <nav class="space-y-2">
-                <button onclick="switchTab('copywriter')" id="btn-copywriter" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition text-left bg-blue-600/20 text-blue-400 border border-blue-500/30">
-                    <i class="fa-solid fa-pen-nib w-5"></i> AI Copywriter
+                <button type="button" onclick="switchTab('copywriter')" id="btn-copywriter" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition text-left bg-blue-600/20 text-blue-400 border border-blue-500/30">
+                    <i class="fa-solid fa-pen-nib w-5 text-center"></i> AI Copywriter
                 </button>
-                <button onclick="switchTab('seo')" id="btn-seo" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition text-left text-slate-400 hover:bg-slate-800 hover:text-slate-200">
-                    <i class="fa-solid fa-magnifying-glass-chart w-5"></i> SEO Meta Builder
+                <button type="button" onclick="switchTab('seo')" id="btn-seo" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition text-left text-slate-400 hover:bg-slate-800/60 hover:text-slate-200">
+                    <i class="fa-solid fa-magnifying-glass-chart w-5 text-center"></i> SEO Meta Builder
                 </button>
-                <button onclick="switchTab('optimizer')" id="btn-optimizer" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition text-left text-slate-400 hover:bg-slate-800 hover:text-slate-200">
-                    <i class="fa-solid fa-file-code w-5"></i> Code & Asset Clean
+                <button type="button" onclick="switchTab('optimizer')" id="btn-optimizer" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition text-left text-slate-400 hover:bg-slate-800/60 hover:text-slate-200">
+                    <i class="fa-solid fa-file-code w-5 text-center"></i> Code Minifier
                 </button>
             </nav>
         </div>
 
         <!-- Sidebar Footer Status -->
-        <div class="pt-6 border-t border-slate-800/80 text-xs text-slate-500 flex items-center justify-between">
+        <div class="pt-6 mt-6 border-t border-slate-800/80 text-xs text-slate-500 flex items-center justify-between">
             <span class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Engine Active
             </span>
@@ -72,33 +77,33 @@
     </aside>
 
     <!-- Main Content Area -->
-    <main class="flex-1 p-6 md:p-10 max-w-6xl mx-auto">
+    <main class="flex-1 p-6 md:p-10 max-w-6xl w-full mx-auto">
         
-        <!-- Top Bar -->
+        <!-- Top Bar Header -->
         <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 pb-6 border-b border-slate-800">
             <div>
                 <h2 id="page-title" class="text-2xl font-bold text-white">AI Copywriter & Post Generator</h2>
                 <p id="page-desc" class="text-slate-400 text-sm mt-1">Generate high-converting marketing copy and social media content in seconds.</p>
             </div>
             <div class="flex items-center gap-3">
-                <span class="text-xs bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-lg text-slate-300">
-                    <i class="fa-solid fa-bolt text-amber-400 mr-1.5"></i> Micro-SaaS Engine
+                <span class="text-xs bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl text-slate-300 flex items-center gap-2">
+                    <i class="fa-solid fa-bolt text-amber-400"></i> Zero API Cost Engine
                 </span>
             </div>
         </header>
 
         <!-- TAB 1: AI COPYWRITER -->
-        <section id="tab-copywriter" class="tab-content block space-y-6">
+        <section id="tab-copywriter" class="tab-content space-y-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <!-- Input Panel -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+                <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-slate-300 mb-2">Topic or Product Name</label>
-                        <input type="text" id="ai-topic" placeholder="e.g. OutreachAI - Cold Email Tool" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-blue-500 transition">
+                        <input type="text" id="ai-topic" placeholder="e.g. OutreachAI - Cold Email Tool" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-blue-500 transition placeholder:text-slate-600">
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-2">Content Type</label>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Content Format</label>
                         <select id="ai-type" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-blue-500 transition">
                             <option value="ad">Facebook / Google Ad Copy</option>
                             <option value="tweet">Viral Twitter / X Thread</option>
@@ -116,13 +121,203 @@
                         </select>
                     </div>
 
-                    <button onclick="generateCopy()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-3.5 rounded-xl transition shadow-lg shadow-blue-600/25 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-sparkles"></i> Generate Copy
+                    <button type="button" onclick="generateCopy()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-3.5 rounded-xl transition shadow-lg shadow-blue-600/25 flex items-center justify-center gap-2 active:scale-[0.99]">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Copy Output
                     </button>
                 </div>
 
                 <!-- Output Panel -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
+                <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-sm font-semibold text-slate-400 uppercase tracking
+                            <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Generated Result</h3>
+                            <button type="button" onclick="copyToClipboard('copy-output')" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1.5">
+                                <i class="fa-regular fa-copy"></i> Copy Text
+                            </button>
+                        </div>
+                        <textarea id="copy-output" readonly placeholder="Your generated content will appear here..." class="w-full h-64 bg-slate-950 border border-slate-800 rounded-xl p-4 text-slate-300 font-mono text-sm resize-none focus:outline-none leading-relaxed"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: SEO META BUILDER -->
+        <section id="tab-seo" class="tab-content hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Input Panel -->
+                <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Website / Page Title</label>
+                        <input type="text" id="seo-title" placeholder="e.g. Best SaaS Micro Tools Portfolio" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-blue-500 transition placeholder:text-slate-600">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Meta Description</label>
+                        <textarea id="seo-desc" rows="3" placeholder="Brief description of your product or web application..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-blue-500 transition text-sm placeholder:text-slate-600"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Keywords (comma separated)</label>
+                        <input type="text" id="seo-keywords" placeholder="saas, micro tools, ai generator" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-blue-500 transition placeholder:text-slate-600">
+                    </div>
+
+                    <button type="button" onclick="generateSEO()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-3.5 rounded-xl transition shadow-lg shadow-blue-600/25 flex items-center justify-center gap-2 active:scale-[0.99]">
+                        <i class="fa-solid fa-code"></i> Generate HTML Tags
+                    </button>
+                </div>
+
+                <!-- Output Panel -->
+                <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">HTML Code Output</h3>
+                            <button type="button" onclick="copyToClipboard('seo-output')" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1.5">
+                                <i class="fa-regular fa-copy"></i> Copy Code
+                            </button>
+                        </div>
+                        <textarea id="seo-output" readonly placeholder="<!-- Generated Meta Tags will appear here -->" class="w-full h-64 bg-slate-950 border border-slate-800 rounded-xl p-4 text-emerald-400 font-mono text-xs resize-none focus:outline-none leading-relaxed"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: CODE MINIFIER -->
+        <section id="tab-optimizer" class="tab-content hidden space-y-6">
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+                <h3 class="text-base font-semibold text-white">Clean & Minify Code Lines</h3>
+                <p class="text-slate-400 text-sm">Paste raw HTML, CSS, or plain text below to automatically trim empty spaces, tabs, and unnecessary line breaks.</p>
+                
+                <textarea id="opt-input" rows="8" placeholder="Paste your raw HTML, CSS, or JavaScript code here..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-slate-200 font-mono text-xs focus:outline-none focus:border-blue-500 transition leading-relaxed placeholder:text-slate-600"></textarea>
+
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <button type="button" onclick="optimizeCode()" class="bg-blue-600 hover:bg-blue-500 text-white font-medium px-6 py-3 rounded-xl transition shadow-lg shadow-blue-600/25 flex items-center gap-2 active:scale-[0.99]">
+                        <i class="fa-solid fa-compress"></i> Minify Code Now
+                    </button>
+                    <button type="button" onclick="copyToClipboard('opt-input')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium px-6 py-3 rounded-xl transition border border-slate-700 flex items-center gap-2 active:scale-[0.99]">
+                        <i class="fa-regular fa-copy"></i> Copy Result
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Interactive JavaScript Engine -->
+    <script>
+        // Tab Navigation Mechanism
+        function switchTab(tabId) {
+            // Hide all tab sections
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(el => el.classList.add('hidden'));
+
+            // Reset navigation button styling
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-blue-600/20', 'text-blue-400', 'border', 'border-blue-500/30');
+                btn.classList.add('text-slate-400');
+            });
+
+            // Activate chosen tab
+            const targetContent = document.getElementById('tab-' + tabId);
+            if (targetContent) targetContent.classList.remove('hidden');
+
+            const targetBtn = document.getElementById('btn-' + tabId);
+            if (targetBtn) {
+                targetBtn.classList.add('bg-blue-600/20', 'text-blue-400', 'border', 'border-blue-500/30');
+                targetBtn.classList.remove('text-slate-400');
+            }
+
+            // Dynamic header texts
+            const titles = {
+                'copywriter': { 
+                    title: 'AI Copywriter & Post Generator', 
+                    desc: 'Generate high-converting marketing copy and social media content in seconds.' 
+                },
+                'seo': { 
+                    title: 'SEO Meta & Schema Builder', 
+                    desc: 'Generate complete HTML Meta tags to boost search ranking instantly.' 
+                },
+                'optimizer': { 
+                    title: 'Code & Asset Minifier', 
+                    desc: 'Clean, trim, and minify raw HTML/CSS assets for faster web loading.' 
+                }
+            };
+
+            if (titles[tabId]) {
+                document.getElementById('page-title').innerText = titles[tabId].title;
+                document.getElementById('page-desc').innerText = titles[tabId].desc;
+            }
+        }
+
+        // Copywriter Generator Logic
+        function generateCopy() {
+            const topicVal = document.getElementById('ai-topic').value.trim();
+            const topic = topicVal !== '' ? topicVal : 'Our Platform';
+            const type = document.getElementById('ai-type').value;
+            const tone = document.getElementById('ai-tone').value;
+            const output = document.getElementById('copy-output');
+
+            output.value = 'Generating AI response...';
+
+            setTimeout(() => {
+                let resultText = '';
+                if (type === 'ad') {
+                    resultText = "🚀 Stop Wasting Time on Manual Work!\n\nDiscover " + topic + " - the ultimate solution designed to double your productivity in half the time.\n\n✨ Key Features:\n- Lightning-fast performance\n- Clean and intuitive interface\n- Designed for creators and modern agencies\n\n👉 Try " + topic + " today and scale your workflow!";
+                } else if (type === 'tweet') {
+                    resultText = "1/5 Building software in public is a game-changer.\n\nHere is how " + topic + " helps creators automate their digital tasks 🧵👇\n\n2/5 Most teams struggle with manual friction. " + topic + " solves this with an all-in-one suite.\n\n3/5 Built with modern web tech stack, zero hosting friction, pure speed.\n\n4/5 Check out the live demo link in bio! 🚀";
+                } else if (type === 'linkedin') {
+                    resultText = "Consistency and efficiency are the primary keys to modern product growth.\n\nWe recently launched " + topic + " to help teams streamline their daily output. Built with a (" + tone + ") approach, it simplifies complex operations into single clicks.\n\nKey Benefits:\n• Fast execution\n• Minimalist dark UI\n• Scale-ready infrastructure\n\nWhat tools are you using to level up your workflow this week? Let me know below! 👇";
+                } else {
+                    resultText = "Subject: Quick question regarding your workflow\n\nHi [Name],\n\nI noticed you are managing digital operations and wanted to share a quick tool that might save your team hours every week.\n\n" + topic + " is designed specifically to simplify complex tasks into single-click workflows.\n\nWould you be open to a 2-minute live demo?\n\nBest regards,\nAhmad";
+                }
+                output.value = resultText;
+            }, 250);
+        }
+
+        // SEO Tag Generator Logic
+        function generateSEO() {
+            const titleVal = document.getElementById('seo-title').value.trim();
+            const descVal = document.getElementById('seo-desc').value.trim();
+            const kwVal = document.getElementById('seo-keywords').value.trim();
+
+            const title = titleVal !== '' ? titleVal : 'My Awesome Web Application';
+            const desc = descVal !== '' ? descVal : 'The best lightweight Micro-SaaS suite for online growth.';
+            const keywords = kwVal !== '' ? kwVal : 'saas, micro tools, ai generator';
+            const output = document.getElementById('seo-output');
+
+            output.value = '<!-- Primary Meta Tags -->\n' +
+'<title>' + title + '</title>\n' +
+'<meta name="title" content="' + title + '">\n' +
+'<meta name="description" content="' + desc + '">\n' +
+'<meta name="keywords" content="' + keywords + '">\n\n' +
+'<!-- Open Graph / Facebook -->\n' +
+'<meta property="og:type" content="website">\n' +
+'<meta property="og:title" content="' + title + '">\n' +
+'<meta property="og:description" content="' + desc + '">\n\n' +
+'<!-- Twitter -->\n' +
+'<meta property="twitter:card" content="summary_large_image">\n' +
+'<meta property="twitter:title" content="' + title + '">\n' +
+'<meta property="twitter:description" content="' + desc + '">';
+        }
+
+        // Code Minifier Logic
+        function optimizeCode() {
+            const input = document.getElementById('opt-input');
+            const rawText = input.value;
+            if (!rawText.trim()) {
+                showToast("Please enter some code to minify!");
+                return;
+            }
+            // Clean multi spaces, tabs & newlines
+            const minified = rawText.replace(/\s+/g, ' ').replace(/> </g, '><').trim();
+            input.value = minified;
+            showToast("Code minified successfully!");
+        }
+
+        // Copy Utility Function
+        function copyToClipboard(elementId) {
+            const field = document.getElementById(elementId);
+            if (!field || !field.value.trim()) {
+                showToast("Nothing to copy!");
+                return;
+            }
+
+            if (navigator.clipboard && window.isSecure
